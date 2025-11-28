@@ -2,25 +2,31 @@
 
 namespace Mandrael\EventTagsBundle;
 
-use Contao\Database;
+use Doctrine\DBAL\Connection;
 
 class TagsHelper
 {
+    private Connection $connection;
+
+    // Dependency Injection: Die Verbindung kommt automatisch rein
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
+
     /**
-     * Liefert alle Tags aus tl_event_tags als Options-Array.
-     *
-     * @return array<int,string>
+     * Liefert alle Tags
+     * WICHTIG: Das "static" muss hier weg!
      */
-    public static function getTags(): array
+    public function getTags(): array
     {
         $options = [];
-        // Hinweis: In Contao 5 ist Database::getInstance() Legacy. 
-        // Für simple Callbacks ist es aber weiterhin der pragmatischste Weg.
-        $db = Database::getInstance();
-        $obj = $db->execute("SELECT id, title FROM tl_event_tags ORDER BY title");
+        
+        // Modernes Doctrine SQL
+        $records = $this->connection->fetchAllAssociative("SELECT id, title FROM tl_event_tags ORDER BY title");
 
-        while ($obj->next()) {
-            $options[(int) $obj->id] = $obj->title;
+        foreach ($records as $row) {
+            $options[(int) $row['id']] = $row['title'];
         }
 
         return $options;
