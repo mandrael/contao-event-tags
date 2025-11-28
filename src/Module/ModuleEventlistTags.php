@@ -8,51 +8,51 @@ use Contao\StringUtil;
 class ModuleEventlistTags extends ModuleEventlist
 {
     /**
-     * Überschreibt die Methode zum Abrufen der Events.
-     * So filtern wir die Rohdaten, bevor sie gerendert werden.
-     * * @param array $strCalendars
-     * @param int $intStart
-     * @param int $intEnd
-     * * @return array
+     * Holt alle Events und filtert sie nach den im Modul gesetzten Tags.
+     *
+     * @param array      $arrCalendars
+     * @param int        $intStart
+     * @param int        $intEnd
+     * @param bool|int   $blnFeatured  Optionales Featured-Flag (Signatur wie im Core)
+     *
+     * @return array
      */
-    protected function getAllEvents($strCalendars, $intStart, $intEnd)
+    protected function getAllEvents($arrCalendars, $intStart, $intEnd, $blnFeatured = null)
     {
-        // Erst alle Events vom Parent holen (Standard-Logik)
-        $allEvents = parent::getAllEvents($strCalendars, $intStart, $intEnd);
+        // Erst alle Events mit der Core-Logik holen
+        $allEvents = parent::getAllEvents($arrCalendars, $intStart, $intEnd, $blnFeatured);
 
-        // Filter-Tags aus dem Modul holen
+        // Tags aus dem Modul (DCA: tl_module.filter_event_tags)
         $filterTags = StringUtil::deserialize($this->filter_event_tags, true);
 
-        // Wenn keine Tags gewählt sind, geben wir einfach das Original-Ergebnis zurück
-        if (!is_array($filterTags) || empty($filterTags)) {
+        // Wenn keine Filter gesetzt sind → nichts filtern
+        if (empty($filterTags)) {
             return $allEvents;
         }
 
-        $filteredEvents = [];
+        $filtered = [];
 
-        // Die Struktur von $allEvents ist: $arrEvents[TagesTimestamp][EventID] = array(EventDaten)
-        if (is_array($allEvents)) {
-            foreach ($allEvents as $dayTimestamp => $dayEvents) {
-                foreach ($dayEvents as $eventId => $eventData) {
-                    
-                    // Tags des einzelnen Events prüfen
-                    $eventTags = StringUtil::deserialize($eventData['event_tags'] ?? null, true);
+        foreach ($allEvents as $dayTimestamp => $eventsOfDay) {
+            foreach ($eventsOfDay as $eventId => $eventData) {
+                // event_tags kommt aus tl_calendar_events (BLOB, serialisiert)
+                $eventTags = StringUtil::deserialize($eventData['event_tags'] ?? null, true);
 
-                    if (!is_array($eventTags) || empty($eventTags)) {
-                        continue;
-                    }
-
-                    // OR-Logik: Mindestens ein Tag muss übereinstimmen
-                    // array_intersect prüft auf Übereinstimmungen
-                    if (count(array_intersect($filterTags, $eventTags)) > 0) {
-                        // Event behalten
-                        $filteredEvents[$dayTimestamp][$eventId] = $eventData;
-                    }
+                if (empty($eventTags)) {
+                    continue;
                 }
+
+                // OR-Logik: Mindestens ein Tag muss übereinstimmen
+                if (!empty(array_intersect($filterTags, $eventTags))) {
+                    $filtered[$dayTimestamp][$eventId] = $eventData;
+                }
+            }
+
+            // Leere Tage entfernen
+            if (empty($filtered[$dayTimestamp] ?? [])) {
+                unset($filtered[$dayTimestamp]);
             }
         }
 
-        // Leere Tage entfernen (optional, aber sauberer)
-        return array_filter($filteredEvents);
+        return $filtered;
     }
 }
