@@ -13,10 +13,10 @@ class MandraelEventTagsBundle extends Bundle
     {
         parent::build($container);
 
-        // KORREKTUR: Pfad angepasst auf Resources/contao/config
+        // lädt Services aus Resources/config/services.yaml
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(__DIR__ . '/Resources/contao/config')
+            new FileLocator(__DIR__ . '/Resources/config')
         );
         $loader->load('services.yaml');
     }
