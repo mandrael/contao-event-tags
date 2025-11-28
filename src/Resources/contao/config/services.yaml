@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        # Sorgt dafür, dass Abhängigkeiten (z.B. Datenbank) automatisch
+        # anhand des Typ-Hints im Constructor erkannt und injiziert werden.
+        autowire: true
+        
+        # Fügt automatisch Tags hinzu (z.B. für Event Listener), 
+        # damit Contao weiß, was der Service tun soll.
+        autoconfigure: true
+        
+        # Standardmäßig sind Services "privat" (nur im Container sichtbar),
+        # um die Performance zu optimieren.
+        public: false
+
+    # Hier registrieren wir deine Helper-Klasse als Service
+    Mandrael\EventTagsBundle\TagsHelper:
+        # Muss public sein, damit Contao ihn über den DCA-Callback 
+        # (options_callback) direkt aufrufen kann.
+        public: true
