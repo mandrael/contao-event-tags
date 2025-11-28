@@ -2,30 +2,37 @@
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
-// 1. Feld-Definition
+/**
+ * 1. Feld-Definition: Event-Tags
+ */
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['event_tags'] = [
-    'label'            => ['Tags', 'Tags für dieses Event auswählen.'],
+    'label'            => ['Event-Tags', 'Tags für dieses Event auswählen.'],
     'exclude'          => true,
     'inputType'        => 'select',
     'options_callback' => ['Mandrael\EventTagsBundle\TagsHelper', 'getTags'],
     'eval'             => [
         'multiple' => true,
         'chosen'   => true,
-        'tl_class' => 'clr w50',
+        'tl_class' => 'clr', 
     ],
     'sql'              => "blob NULL",
 ];
 
-$manipulator = PaletteManipulator::create()
-    ->addField('event_tags', 'author', PaletteManipulator::POSITION_AFTER);
+/**
+ * 2. Positionierung in der Palette
+ */
+if (isset($GLOBALS['TL_DCA']['tl_calendar_events']['palettes']) && is_array($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'])) {
+    
+    foreach ($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'] as $paletteName => $paletteDef) {
+        
+        if (!is_string($paletteDef)) {
+            continue;
+        }
 
-// Liste der Paletten, die wir bearbeiten wollen
-$targetPalettes = ['default', 'internal', 'article', 'external'];
-
-// Wir gehen die Liste durch und wenden den Manipulator NUR an, 
-// wenn die Palette auch wirklich existiert.
-foreach ($targetPalettes as $paletteName) {
-    if (isset($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'][$paletteName])) {
-        $manipulator->applyToPalette($paletteName, 'tl_calendar_events');
+        if (strpos($paletteDef, 'author') !== false) {
+            PaletteManipulator::create()
+                ->addField('event_tags', 'author', PaletteManipulator::POSITION_AFTER)
+                ->applyToPalette($paletteName, 'tl_calendar_events');
+        }
     }
 }
