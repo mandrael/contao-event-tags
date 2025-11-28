@@ -3,21 +3,30 @@
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 
 /**
- * --------------------------------------------------------------------------
+ * Palette für das eigene Modul "eventlist_tags"
+ */
+$GLOBALS['TL_DCA']['tl_module']['palettes']['eventlist_tags'] =
+    '{title_legend},name,headline,type;
+     {config_legend},cal_calendar,filter_event_tags;
+     {redirect_legend},jumpTo;
+     {template_legend:hide},customTpl;
+     {protected_legend:hide},protected;
+     {expert_legend:hide},guests,cssID;
+     {invisible_legend:hide},invisible,start,stop';
+
+
+/**
  * Feld: filter_event_tags
- * --------------------------------------------------------------------------
- * Wird im Frontend-Modul „Eventliste (mit Tag-Filter)“ verwendet.
- * Speicherung als BLOB, kompatibel mit Contao 4.13 und 5.3.
  */
 $GLOBALS['TL_DCA']['tl_module']['fields']['filter_event_tags'] = [
-    'label'            => ['Tags filtern', 'Es werden nur Events angezeigt, die mindestens einen dieser Tags besitzen.'],
+    'label'            => ['Nach Tags filtern', 'Es werden nur Events mit diesen Tags angezeigt'],
     'exclude'          => true,
     'inputType'        => 'select',
-    'options_callback' => ['Mandrael\\EventTagsBundle\\TagsHelper', 'getTags'],
+    'options_callback' => ['Mandrael\\EventTagsBundle\\Helper\\TagsHelper', 'getTags'],
     'eval'             => [
         'multiple' => true,
         'chosen'   => true,
-        'tl_class' => 'clr w50',
+        'tl_class' => 'clr', // volle Breite
     ],
     'sql'              => [
         'type'    => 'blob',
@@ -25,16 +34,3 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['filter_event_tags'] = [
         'notnull' => false,
     ],
 ];
-
-/**
- * --------------------------------------------------------------------------
- * Integration des Feldes in das FE-Modul "eventlist_tags"
- * --------------------------------------------------------------------------
- * Das Modul wird im config.php registriert und erhält hier die Felder.
- */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['eventlist_tags']
-    = str_replace(
-        'cal_calendar', 
-        'cal_calendar,filter_event_tags',
-        $GLOBALS['TL_DCA']['tl_module']['palettes']['eventlist'] ?? 'cal_calendar,filter_event_tags'
-    );
