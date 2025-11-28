@@ -1,9 +1,13 @@
 <?php
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 
 /**
- * 1. Feld-Definition: Event-Tags
+ * --------------------------------------------------------------------------
+ * Feld: event_tags
+ * --------------------------------------------------------------------------
+ * Mehrfachauswahl, Speicherung als BLOB – kompatibel mit Contao 4.13 und 5.3.
  */
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['event_tags'] = [
     'label'            => ['Event-Tags', 'Tags für dieses Event auswählen.'],
@@ -13,19 +17,27 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['event_tags'] = [
     'eval'             => [
         'multiple' => true,
         'chosen'   => true,
-        'tl_class' => 'clr', 
+        'tl_class' => 'clr',
     ],
-    'sql'              => "blob NULL",
+    'sql'              => [
+        'type'    => 'blob',
+        'length'  => MySQLPlatform::LENGTH_LIMIT_BLOB,
+        'notnull' => false,
+    ],
 ];
 
 /**
- * 2. Positionierung in der Palette
+ * --------------------------------------------------------------------------
+ * Positionierung in allen Paletten: direkt NACH "author"
+ * --------------------------------------------------------------------------
  */
-if (isset($GLOBALS['TL_DCA']['tl_calendar_events']['palettes']) && is_array($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'])) {
-    
+if (
+    isset($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'])
+    && is_array($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'])
+) {
     foreach ($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'] as $paletteName => $paletteDef) {
-        
-        if (!is_string($paletteDef)) {
+        // Die besondere __selector__-Palette nicht anfassen
+        if ('__selector__' === $paletteName || !is_string($paletteDef)) {
             continue;
         }
 
