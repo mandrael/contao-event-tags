@@ -13,10 +13,10 @@ class MandraelEventTagsBundle extends Bundle
     {
         parent::build($container);
 
-        // Hier laden wir die services.yaml, damit Dependency Injection funktioniert
+        // KORREKTUR: Pfad angepasst auf Resources/contao/config
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(__DIR__ . '/Resources/config')
+            new FileLocator(__DIR__ . '/Resources/contao/config')
         );
         $loader->load('services.yaml');
     }
