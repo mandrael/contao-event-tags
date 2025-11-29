@@ -1,8 +1,10 @@
 <?php
 
+use Contao\DataContainer\Table;
+
 $GLOBALS['TL_DCA']['tl_event_tags'] = [
     'config' => [
-        'dataContainer' => 'DC_Table',
+        'dataContainer' => Table::class,
         'sql' => [
             'keys' => [
                 'id'    => 'primary',
