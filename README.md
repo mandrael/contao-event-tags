@@ -26,7 +26,7 @@ Eventlisten nach diesen Tags zu filtern.
 5. Ein Frontend-Modul vom Typ **Eventliste** bearbeiten (oder neu anlegen)
    und im Feld **Nach Tags filtern** die gewünschten Tags wählen.
 
-Getestet mit Contao **4.13** und demnächst mit **5.3**.
+Getestet mit Contao **4.13** und **5.3**.
 
 ---
 
@@ -57,4 +57,4 @@ managed tags to events (tl_calendar_events) and filter event lists by these tags
 5. Edit (or create) a frontend module of type **Event list** and select the
    desired tags in the **Filter by tags** field.
 
-Tested with Contao **4.13** and soon with **5.3**.
+Tested with Contao **4.13** and **5.3**.
