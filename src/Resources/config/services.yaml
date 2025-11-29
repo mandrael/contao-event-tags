@@ -4,15 +4,18 @@ services:
         autoconfigure: true
         public: false
 
-    # Autoload alle Services aus src/, außer den Contao-spezifischen Ordnern
     Mandrael\EventTagsBundle\:
         resource: '../../*'
         exclude:
             - '../../Resources/contao'
-            - '../../ContaoManager'
             - '../../Resources/public'
+            - '../../ContaoManager'
+            - '../../MandraelEventTagsBundle.php'
 
-    # TagsHelper MUSS public sein, da er über DCA options_callback
-    # ohne Dependency Injection instanziert wird (Contao-Spezialfall!)
     Mandrael\EventTagsBundle\Helper\TagsHelper:
         public: true
+
+    # Der Listener für den Hook
+    Mandrael\EventTagsBundle\EventListener\EventFilterListener:
+        tags:
+            - { name: contao.hook, hook: getAllEvents }
