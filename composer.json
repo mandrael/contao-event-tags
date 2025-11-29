@@ -1,6 +1,5 @@
 {
     "name": "mandrael/contao-event-tags",
-    "version": "0.1.0",
     "description": "Erweiterung für Contao, um Events zentrale Tags zuzuweisen und Eventlisten nach Tags zu filtern.",
     "type": "contao-bundle",
     "license": "MIT",
