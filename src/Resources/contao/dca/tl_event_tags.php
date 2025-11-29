@@ -2,7 +2,7 @@
 
 $GLOBALS['TL_DCA']['tl_event_tags'] = [
     'config' => [
-        'dataContainer' => 'Table',
+        'dataContainer' => 'DC_Table',
         'sql' => [
             'keys' => [
                 'id'    => 'primary',
@@ -39,7 +39,6 @@ $GLOBALS['TL_DCA']['tl_event_tags'] = [
                 'label'      => ['Löschen', 'Tag löschen'],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.svg',
-                // KORREKTUR: Anführungszeichen escaped
                 'attributes' => 'onclick="if(!confirm(\'Wirklich löschen?\'))return false;Backend.getScrollOffset()"',
             ],
             'show' => [
