@@ -3,7 +3,7 @@
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
 /**
- * Feld-Definition (wie gehabt)
+ * Feld-Definition: filter_event_tags
  */
 $GLOBALS['TL_DCA']['tl_module']['fields']['filter_event_tags'] = [
     'label'            => ['Nach Tags filtern', 'Nur Events mit diesen Tags anzeigen.'],
@@ -15,15 +15,12 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['filter_event_tags'] = [
         'chosen'   => true,
         'tl_class' => 'clr',
     ],
-    'sql'              => [
-        'type'    => 'blob',
-        'length'  => 65535,
-        'notnull' => false,
-    ],
+    // WICHTIGE ÄNDERUNG: TEXT statt BLOB
+    'sql'              => "text NULL",
 ];
 
 /**
- * Positionierung: Wir hängen es in die STANDARD 'eventlist'
+ * Positionierung: In die STANDARD 'eventlist'
  * Direkt nach der Kalender-Auswahl.
  */
 PaletteManipulator::create()
