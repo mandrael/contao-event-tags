@@ -1,29 +1,26 @@
 <?php
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
-use Doctrine\DBAL\Platforms\MySQLPlatform;
 
 /**
  * --------------------------------------------------------------------------
  * Feld: event_tags
  * --------------------------------------------------------------------------
- * Mehrfachauswahl, Speicherung als BLOB – kompatibel mit Contao 4.13 und 5.3.
+ * Mehrfachauswahl, Speicherung als TEXT (lesbares serialisiertes Array).
  */
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['event_tags'] = [
     'label'            => ['Event-Tags', 'Tags für dieses Event auswählen.'],
     'exclude'          => true,
     'inputType'        => 'select',
-    'options_callback' => ['Mandrael\EventTagsBundle\Helper\TagsHelper', 'getTags'],
+    // Einheitliche Schreibweise mit ::class (wie im Modul)
+    'options_callback' => [Mandrael\EventTagsBundle\Helper\TagsHelper::class, 'getTags'],
     'eval'             => [
         'multiple' => true,
         'chosen'   => true,
-        'tl_class' => 'clr',
+        'tl_class' => 'clr', // volle Breite
     ],
-    'sql'              => [
-        'type'    => 'blob',
-        'length'  => MySQLPlatform::LENGTH_LIMIT_BLOB,
-        'notnull' => false,
-    ],
+    // WICHTIGE ÄNDERUNG: TEXT statt BLOB für bessere Handhabung
+    'sql'              => "text NULL",
 ];
 
 /**
@@ -31,19 +28,25 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['event_tags'] = [
  * Positionierung in allen Paletten: direkt NACH "author"
  * --------------------------------------------------------------------------
  */
-if (
-    isset($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'])
-    && is_array($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'])
-) {
+if (isset($GLOBALS['TL_DCA']['tl_calendar_events']['palettes']) && is_array($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'])) {
+    
     foreach ($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'] as $paletteName => $paletteDef) {
-        // Die besondere __selector__-Palette nicht anfassen
+        
+        // Die besondere __selector__-Palette und Arrays nicht anfassen
         if ('__selector__' === $paletteName || !is_string($paletteDef)) {
             continue;
         }
 
+        // Wir suchen 'author' und hängen uns direkt dahinter
         if (strpos($paletteDef, 'author') !== false) {
             PaletteManipulator::create()
                 ->addField('event_tags', 'author', PaletteManipulator::POSITION_AFTER)
+                ->applyToPalette($paletteName, 'tl_calendar_events');
+        }
+        // Fallback: Falls 'author' fehlt, nehmen wir 'title'
+        elseif (strpos($paletteDef, 'title') !== false) {
+             PaletteManipulator::create()
+                ->addField('event_tags', 'title', PaletteManipulator::POSITION_AFTER)
                 ->applyToPalette($paletteName, 'tl_calendar_events');
         }
     }
