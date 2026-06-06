@@ -29,4 +29,4 @@ lists by these tags.
 5. Edit a frontend module of type **Event list** and select the desired tags
    plus the combination (OR/AND) in the **Filter by tags** field.
 
-Tested with Contao **4.13**, **5.3** and **5.7** LTS (PHP ≥ 8.1).
+Compatible with Contao **4.13**, **5.3** and **5.7** LTS (PHP ≥ 8.1).
