@@ -29,4 +29,4 @@ Eventlisten nach diesen Tags zu filtern.
 5. Ein Frontend-Modul vom Typ **Eventliste** bearbeiten und im Feld
    **Nach Tags filtern** die gewünschten Tags samt Verknüpfung (ODER/UND) wählen.
 
-Getestet mit Contao **4.13**, **5.3** und **5.7** LTS (PHP ≥ 8.1).
+Kompatibel mit Contao **4.13**, **5.3** und **5.7** LTS (PHP ≥ 8.1).
