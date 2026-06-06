@@ -21,6 +21,8 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Behoben
 - N+1-Datenbankabfrage im `getAllEvents`-Filter bei ungetaggten Events.
+- Nativer Rückgabetyp `array` an `Plugin::getBundles()` – entfernt eine
+  Boot-Deprecation unter Contao 4.13.
 
 ### Kompatibilität
 - Contao 4.13, 5.3 und 5.7 LTS (PHP ≥ 8.1).
