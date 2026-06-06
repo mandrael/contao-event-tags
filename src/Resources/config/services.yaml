@@ -15,6 +15,10 @@ services:
     Mandrael\EventTagsBundle\Helper\TagsHelper:
         public: true
 
+    # label_callback (tl_event_tags): von Contao über den Container aufgelöst -> public
+    Mandrael\EventTagsBundle\EventListener\TagLabelListener:
+        public: true
+
     # Der Listener für den Hook
     Mandrael\EventTagsBundle\EventListener\EventFilterListener:
         tags:

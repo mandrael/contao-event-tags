@@ -2,6 +2,7 @@
 
 namespace Mandrael\EventTagsBundle\Helper;
 
+use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 
 class TagsHelper
@@ -15,6 +16,10 @@ class TagsHelper
 
     /**
      * Liefert die Tag-Optionen für Select-Felder (id => title).
+     *
+     * Der Titel wird escaped, weil Contaos SelectMenu-Widget Option-Labels
+     * ungefiltert ausgibt (Stored-XSS-Schutz). decodeEntities normalisiert
+     * zuerst, damit bereits kodierte Titel nicht doppelt escaped werden.
      */
     public function getTags(): array
     {
@@ -25,7 +30,9 @@ class TagsHelper
         );
 
         foreach ($records as $row) {
-            $options[(int) $row['id']] = $row['title'];
+            $options[(int) $row['id']] = StringUtil::specialchars(
+                StringUtil::decodeEntities((string) $row['title'])
+            );
         }
 
         return $options;
