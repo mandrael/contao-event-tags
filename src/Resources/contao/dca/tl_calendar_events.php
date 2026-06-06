@@ -9,10 +9,8 @@ use Contao\CoreBundle\DataContainer\PaletteManipulator;
  * Mehrfachauswahl, Speicherung als TEXT (lesbares serialisiertes Array).
  */
 $GLOBALS['TL_DCA']['tl_calendar_events']['fields']['event_tags'] = [
-    'label'            => ['Event-Tags', 'Tags für dieses Event auswählen.'],
     'exclude'          => true,
     'inputType'        => 'select',
-    // Einheitliche Schreibweise mit ::class (wie im Modul)
     'options_callback' => [Mandrael\EventTagsBundle\Helper\TagsHelper::class, 'getTags'],
     'eval'             => [
         'multiple' => true,
