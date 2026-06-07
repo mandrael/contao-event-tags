@@ -33,8 +33,9 @@ class EventFilterListener
                     // getAllEvents liefert die volle Event-Zeile; bei ungetaggten Events
                     // ist der Key vorhanden (NULL). array_key_exists statt isset vermeidet
                     // eine Nachlade-Query pro ungetaggtem Event (N+1). Der Fallback bleibt
-                    // als Sicherheitsnetz, falls der Key wider Erwarten fehlt.
-                    if (!array_key_exists('event_tags', $eventData)) {
+                    // als Sicherheitsnetz, falls ein Fremd-Hook eine Zeile ohne den Key
+                    // liefert — nur wenn dann auch eine id vorhanden ist.
+                    if (!array_key_exists('event_tags', $eventData) && isset($eventData['id'])) {
                         $objEvent = Database::getInstance()
                             ->prepare('SELECT event_tags FROM tl_calendar_events WHERE id=?')
                             ->limit(1)

@@ -11,7 +11,9 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
   escaped (Schutz vor Stored-XSS über das nicht escapende SelectMenu-Widget).
 
 ### Hinzugefügt
-- Optionale Felder **Farbe** und **Icon** je Tag zur Unterscheidung im Backend.
+- Optionales **Farb**-Feld je Tag, in der Backend-Liste als Swatch sichtbar.
+- Optionales **Icon**-Feld je Tag (gespeichert; gerenderte Anzeige für ein
+  späteres Release vorgesehen).
 - **Nutzungszähler** je Tag in der Backend-Liste (Anzahl verwendender Events).
 - **Filter-Verknüpfung** (ODER/UND) pro Eventliste-Modul.
 - Englische Sprachdateien; alle Backend-Labels in Sprachdateien externalisiert
@@ -19,10 +21,12 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 - Harte Composer-Abhängigkeit `contao/calendar-bundle`.
 - Zweisprachige README (`README.md` / `README.en.md`).
 
+### Geändert
+- Expliziter Rückgabetyp `array` an `Plugin::getBundles()` (passend zum
+  `@return`-Hinweis des Interfaces; Code-Härte und Static-Analysis-Klarheit).
+
 ### Behoben
 - N+1-Datenbankabfrage im `getAllEvents`-Filter bei ungetaggten Events.
-- Nativer Rückgabetyp `array` an `Plugin::getBundles()` – entfernt eine
-  Boot-Deprecation unter Contao 4.13.
 
 ### Kompatibilität
 - Contao 4.13, 5.3 und 5.7 LTS (PHP ≥ 8.1).

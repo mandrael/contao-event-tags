@@ -1,0 +1,6 @@
+# Dev-/Test-Artefakte aus dem von Composer ausgelieferten Dist-Paket ausschliessen.
+# Betrifft NUR den dist-Tarball (composer require), nicht das Git-Repo.
+/.gitattributes      export-ignore
+/.github/            export-ignore
+/phpunit.xml.dist    export-ignore
+/tests/              export-ignore
