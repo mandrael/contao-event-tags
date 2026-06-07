@@ -4,7 +4,7 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/de/1.1.0/),
 die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
-## [0.2.0] – 2026-06-06
+## [0.2.0] – 2026-06-08
 
 ### Sicherheit
 - Tag-Titel werden in den Backend-Select-Optionen und in der Listenansicht
