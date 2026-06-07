@@ -6,7 +6,7 @@ use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 
 /**
- * label_callback für tl_event_tags: rendert Farb-Swatch + escapeten Titel +
+ * label_callback für tl_event_tags: rendert den escapeten Titel + den
  * Nutzungszähler (in wie vielen Events der Tag verwendet wird).
  *
  * Das Escaping des Titels deckt den Listenansicht-Ausgabekontext ab
@@ -28,9 +28,7 @@ class TagLabelListener
         $title = StringUtil::specialchars(StringUtil::decodeEntities((string) ($row['title'] ?? '')));
         $count = $this->usageCounts()[(int) $row['id']] ?? 0;
 
-        return $this->renderSwatch((string) ($row['color'] ?? ''))
-            . $title
-            . sprintf(' <span style="color:#999">(%d)</span>', $count);
+        return $title . sprintf(' <span style="color:#999">(%d)</span>', $count);
     }
 
     private function usageCounts(): array
@@ -53,19 +51,5 @@ class TagLabelListener
         }
 
         return $this->usageCounts;
-    }
-
-    private function renderSwatch(string $color): string
-    {
-        $color = ltrim($color, '#');
-
-        if (!preg_match('/^(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/', $color)) {
-            return '';
-        }
-
-        return sprintf(
-            '<span style="display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:middle;border:1px solid #ccc;background:#%s"></span>',
-            $color
-        );
     }
 }

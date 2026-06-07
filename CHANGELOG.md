@@ -11,9 +11,6 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
   escaped (Schutz vor Stored-XSS über das nicht escapende SelectMenu-Widget).
 
 ### Hinzugefügt
-- Optionales **Farb**-Feld je Tag, in der Backend-Liste als Swatch sichtbar.
-- Optionales **Icon**-Feld je Tag (gespeichert; gerenderte Anzeige für ein
-  späteres Release vorgesehen).
 - **Nutzungszähler** je Tag in der Backend-Liste (Anzahl verwendender Events).
 - **Filter-Verknüpfung** (ODER/UND) pro Eventliste-Modul.
 - Englische Sprachdateien; alle Backend-Labels in Sprachdateien externalisiert
@@ -30,8 +27,8 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Kompatibilität
 - Contao 4.13, 5.3 und 5.7 LTS (PHP ≥ 8.1).
-- Nur additive DB-Spalten (`tl_event_tags.color`, `tl_event_tags.icon`,
-  `tl_module.filter_event_tags_logic`) – Downgrade auf 0.1.1 problemlos.
+- Nur additive DB-Spalte (`tl_module.filter_event_tags_logic`) – Downgrade auf
+  0.1.1 problemlos.
 
 ## [0.1.1] – 2025-11-29
 

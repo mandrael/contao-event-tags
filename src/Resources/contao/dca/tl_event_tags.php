@@ -51,7 +51,7 @@ $GLOBALS['TL_DCA']['tl_event_tags'] = [
     ],
 
     'palettes' => [
-        'default' => '{title_legend},title,color,icon;',
+        'default' => '{title_legend},title;',
     ],
 
     'fields' => [
@@ -67,18 +67,6 @@ $GLOBALS['TL_DCA']['tl_event_tags'] = [
             'inputType' => 'text',
             'eval'      => ['mandatory' => true, 'maxlength' => 128, 'tl_class' => 'w50'],
             'sql'       => "varchar(128) NOT NULL default ''",
-        ],
-
-        'color' => [
-            'inputType' => 'text',
-            'eval'      => ['maxlength' => 6, 'colorpicker' => true, 'isHexColor' => true, 'decodeEntities' => true, 'tl_class' => 'w50 wizard'],
-            'sql'       => "varchar(6) NOT NULL default ''",
-        ],
-
-        'icon' => [
-            'inputType' => 'fileTree',
-            'eval'      => ['filesOnly' => true, 'fieldType' => 'radio', 'extensions' => 'svg,png,jpg,jpeg,gif,webp', 'tl_class' => 'w50'],
-            'sql'       => "binary(16) NULL",
         ],
     ],
 ];

@@ -37,8 +37,6 @@ class LanguageFilesTest extends TestCase
             'MSC.eventTagsDeleteConfirm',
             'tl_event_tags.title_legend',
             'tl_event_tags.title.0',
-            'tl_event_tags.color.0',
-            'tl_event_tags.icon.0',
             'tl_event_tags.delete.0',
             'tl_calendar_events.event_tags.0',
             'tl_module.filter_event_tags.0',

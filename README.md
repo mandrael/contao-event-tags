@@ -9,9 +9,8 @@ Eventlisten nach diesen Tags zu filtern.
 ## Funktionsumfang
 
 - Neue Tabelle **tl_event_tags** zur Verwaltung von Tags im Backend
-  (Backend-Modul: Inhalte → Event-Tags) – optional mit einer **Farbe**
-  (in der Backend-Liste als Swatch sichtbar) und einem optionalen
-  **Icon**-Feld sowie einem **Nutzungszähler** (Anzahl Events je Tag).
+  (Backend-Modul: Inhalte → Event-Tags) – mit einem **Nutzungszähler**
+  (Anzahl Events je Tag) in der Backend-Liste.
 - Neues Feld **event_tags** in **tl_calendar_events**:
   Mehrfachauswahl über ein Select-Feld mit Suchfunktion (chosen).
   *Das Feld positioniert sich automatisch direkt nach dem Autor oder Titel.*
