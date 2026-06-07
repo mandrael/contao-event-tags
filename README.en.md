@@ -9,9 +9,8 @@ lists by these tags.
 ## Features
 
 - New table **tl_event_tags** for tag management in the back end
-  (back end module: Content → Event tags) – optionally with a **colour**
-  (shown as a swatch in the back end list) and an optional **icon** field
-  plus a **usage counter** (number of events per tag).
+  (back end module: Content → Event tags) – with a **usage counter**
+  (number of events per tag) in the back end list.
 - New field **event_tags** in **tl_calendar_events**:
   multi-select field with a search function (chosen).
   *The field is automatically positioned right after the author or title.*
