@@ -32,4 +32,30 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [0.1.1] – 2025-11-29
 
-## [0.1.0]
+### Behoben
+- Datacontainer von `tl_event_tags` auf `Contao\DC_Table::class` umgestellt
+  (zuvor der String `'Table'`) – Voraussetzung für Contao 5.3.
+- Hartkodiertes `version`-Feld aus `composer.json` entfernt (die Version wird
+  vom Git-Tag abgeleitet).
+
+### Hinzugefügt
+- Deutsches Label `title_legend` („Event-Tag") für `tl_event_tags`.
+
+### Kompatibilität
+- Getestet mit Contao 5.3.
+
+## [0.1.0] – 2025-11-29
+
+### Hinzugefügt
+- Erstveröffentlichung.
+- Zentrale **Tag-Verwaltung** (`tl_event_tags`) mit Backend-Modul
+  (Inhalte → Event-Tags).
+- **Tag-Zuweisung an Events** über das Mehrfachauswahl-Feld `event_tags` in
+  `tl_calendar_events`.
+- **Eventlisten-Filterung nach Tags** über den `getAllEvents`-Hook
+  (`EventFilterListener`); das Eventliste-Modul erhält das Feld
+  „Nach Tags filtern" (`filter_event_tags`). Filter-Logik: ODER.
+- Deutsche Sprachdateien.
+
+### Kompatibilität
+- Contao 4.13 und 5.x.
