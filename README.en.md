@@ -1,8 +1,8 @@
+<img src="logo.svg" alt="Contao Event Tags" width="64" align="right">
+
 **Language:** [Deutsch](README.md) · [English](README.en.md)
 
 # mandrael/contao-event-tags
-
-<img src="logo.svg" alt="Contao Event Tags" width="110" align="right">
 
 This bundle extends Contao (4.13, 5.3 and 5.7 LTS) with a simple way to assign
 centrally managed tags to events (`tl_calendar_events`) and to filter event
