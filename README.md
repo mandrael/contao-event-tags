@@ -1,4 +1,4 @@
-<img src="logo.svg" alt="Contao Event Tags" width="64" align="right">
+<img src="logo.svg" alt="Contao Event Tags" width="110" align="right">
 
 **Sprache:** [Deutsch](README.md) · [English](README.en.md)
 
