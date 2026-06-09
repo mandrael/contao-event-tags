@@ -1,3 +1,5 @@
+<img src="logo.svg" alt="Contao Event Tags" width="88" align="right">
+
 **Language:** [Deutsch](README.md) · [English](README.en.md)
 
 # mandrael/contao-event-tags
