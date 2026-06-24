@@ -4,6 +4,12 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/de/1.1.0/),
 die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
+## [Unreleased]
+
+### Behoben
+- **Backend-Dark-Mode:** Der Nutzungszähler in der Tag-Liste nutzt die Contao-Klasse
+  `tl_gray` statt einer festen Farbe (`#999`) und schaltet im Contao-5-Dark-Mode mit.
+
 ## [0.2.0] – 2026-06-08
 
 ### Sicherheit

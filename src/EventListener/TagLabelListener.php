@@ -28,7 +28,7 @@ class TagLabelListener
         $title = StringUtil::specialchars(StringUtil::decodeEntities((string) ($row['title'] ?? '')));
         $count = $this->usageCounts()[(int) $row['id']] ?? 0;
 
-        return $title . sprintf(' <span style="color:#999">(%d)</span>', $count);
+        return $title . sprintf(' <span class="tl_gray">(%d)</span>', $count);
     }
 
     private function usageCounts(): array
